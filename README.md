@@ -8,7 +8,7 @@ The hope in posting this to Github is that it will promote open science, as ever
 
 #### Table of Contents ####
 
-* Introduction 
+* [[Introduction | https://raw.github.com/Zsailer/calpolythesis/master/notebooks/Introduction%20-%20Discussion%20of%20Dielectric%20Spectroscopy%20in%20LCs.ipynb]]
 	* Phases within the Liquid Crystal Phase
 	
 	* Tilt Cone, Polarization, and LC Cells
