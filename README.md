@@ -20,7 +20,7 @@ The links below lead to the raw json file that can be pasted into the IPython no
 	
 	* Universality Classes
 
-* <a href = " ">
+* <a href = "http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Experimental%2520Design%2520-%2520Theory%2520Behind%2520Dielectric%2520Spectroscopy.ipynb ">
 	Dielectric Spectroscopy</a>
 
 	* Review of a Capacitor
@@ -34,7 +34,7 @@ The links below lead to the raw json file that can be pasted into the IPython no
 * <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Results%2520and%2520Analysis%2520I%2520-%2520Obtaining%2520LC%2520Dielectric%2520Spectrum.ipynb">
 	Results and Analysis I - Obtaining LC Dielectric Spectrum</a>
 
-* <a href=" ">
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Analysis%2520II%2520-%2520Determining%2520LC%2520susceptibility%2520in%2520AC%2520Field.ipynb">
 	Analysis II - Determining LC susceptibility in AC Field</a>
 
 * Conclusion
