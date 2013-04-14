@@ -6,9 +6,12 @@ This repository includes my final thesis paper on "Dielectric Spectroscopy of Li
 It includes the all data files, figures, code, IPython notebooks, and final PDF paper (written in Latex). 
 The hope in posting this to Github is that it will promote open science, as every bit of my project and research is available online.
 
+The links below lead to the raw json file that can be pasted into the IPython notebook's [NbViewer]()
+
 #### Table of Contents ####
 
-* <a href="https://raw.github.com/Zsailer/calpolythesis/master/notebooks/Introduction%20-%20Discussion%20of%20Dielectric%20Spectroscopy%20in%20LCs.ipynb">Introduction</a>
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Introduction%2520-%2520Discussion%2520of%2520Dielectric%2520Spectroscopy%2520in%2520LCs.ipynb">
+	Introduction - Discussion of Dielectric Spectroscopy in LCs</a>
 	* Phases within the Liquid Crystal Phase
 	
 	* Tilt Cone, Polarization, and LC Cells
@@ -17,7 +20,8 @@ The hope in posting this to Github is that it will promote open science, as ever
 	
 	* Universality Classes
 
-* Dielectric Spectroscopy
+* <a href = " ">
+	Dielectric Spectroscopy</a>
 
 	* Review of a Capacitor
 	
@@ -27,8 +31,10 @@ The hope in posting this to Github is that it will promote open science, as ever
 	
 	* What is Going on with the Liquid Crystal?
 	
-* Results 
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Results%2520and%2520Analysis%2520I%2520-%2520Obtaining%2520LC%2520Dielectric%2520Spectrum.ipynb">
+	Results and Analysis I - Obtaining LC Dielectric Spectrum</a>
 
-* Analysis
+* <a href=" ">
+	Analysis II - Determining LC susceptibility in AC Field</a>
 
 * Conclusion
