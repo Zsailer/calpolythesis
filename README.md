@@ -20,7 +20,7 @@ The links below use NbViewer to convert the raw json files into viewable noteboo
 	
 	* Universality Classes
 
-* <a href = "http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Experimental%2520Design%2520-%2520Theory%2520Behind%2520Dielectric%2520Spectroscopy.ipynb ">
+* <a href = "http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Experimental%2520Design%2520-%2520Theory%2520Behind%2520Dielectric%2520Spectroscopy.ipynb">
 	Experimental Design - Theory Behind Dielectric Spectroscopy</a>
 
 	* Review of a Capacitor
