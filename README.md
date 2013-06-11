@@ -18,6 +18,8 @@ The links below use NbViewer to convert the raw json files into viewable noteboo
 	
 	* Ferroelectricity, Antiferroelectricity, and Chirality
 	
+	* De Vries Materials
+	
 	* Universality Classes
 
 * <a href = "http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Experimental%2520Design%2520-%2520Theory%2520Behind%2520Dielectric%2520Spectroscopy.ipynb">
@@ -31,10 +33,19 @@ The links below use NbViewer to convert the raw json files into viewable noteboo
 	
 	* What is Going on with the Liquid Crystal?
 	
-* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Results%2520and%2520Analysis%2520I%2520-%2520Obtaining%2520LC%2520Dielectric%2520Spectrum.ipynb">
-	Results and Analysis I - Obtaining LC Dielectric Spectrum</a>
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Analysis%20I%20-%20Obtaining%20LC%20Dielectric%20Spectrum.ipynb">
+	Analysis I - Obtaining LC Dielectric Spectrum</a>
 
-* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Analysis%2520II%2520-%2520Determining%2520LC%2520susceptibility%2520in%2520AC%2520Field.ipynb">
-	Analysis II - Determining LC susceptibility in AC Field</a>
+	* Soft-Mode Absorption
+	
+	* Landau theory
 
-* Conclusion
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Analysis%20II%20-%20TSiKN65.ipynb">
+	Analysis II - TSiKN65</a>
+
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Analysis%20III%20-%208422%5B2F3%5D.ipynb">
+	Analysis III - 8422[2F3]</a>
+
+* <a href="http://nbviewer.ipython.org/urls/raw.github.com/Zsailer/calpolythesis/master/notebooks/Results%20and%20Discussion.ipynb">
+	Results and Discussion</a>
+
