@@ -1,0 +1,505 @@
+% This is the script that includes all packages
+
+\documentclass[11pt, oneside]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{natbib}
+\usepackage{bibentry}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{subfigure}
+%\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{blindtext}
+\usepackage{soul}
+\usepackage{gensymb}
+\usepackage{url}
+\usepackage{mcode}
+\usepackage{float}
+\usepackage[small]{caption}
+\usepackage{pdfpages}
+
+\graphicspath{{./notebook/figures/}}
+
+
+% MATLAB INSERTION
+\usepackage{listings}
+\lstset{ 
+        language=Matlab,                                % choose the language of the code
+%       basicstyle=10pt,                                % the size of the fonts that are used for the code
+        numbers=left,                                   % where to put the line-numbers
+        numberstyle=\footnotesize,                      % the size of the fonts that are used for the line-numbers
+        stepnumber=1,                                           % the step between two line-numbers. If it's 1 each line will be numbered
+        numbersep=5pt,                                  % how far the line-numbers are from the code
+%       backgroundcolor=\color{white},          % choose the background color. You must add \usepackage{color}
+        showspaces=false,                               % show spaces adding particular underscores
+        showstringspaces=false,                         % underline spaces within strings
+        showtabs=false,                                         % show tabs within strings adding particular underscores
+%       frame=single,                                           % adds a frame around the code
+%       tabsize=2,                                              % sets default tabsize to 2 spaces
+%       captionpos=b,                                           % sets the caption-position to bottom
+        breaklines=true,                                        % sets automatic line breaking
+        breakatwhitespace=false,                        % sets if automatic breaks should only happen at whitespace
+        escapeinside={\%*}{*)}                          % if you want to add a comment within your code
+}
+
+% Default margins are too wide all the way around. I reset them here
+\setlength{\topmargin}{-.6in}
+\setlength{\textheight}{9.2in}
+\setlength{\oddsidemargin}{-.1in}
+\setlength{\textwidth}{6.8in}
+
+\title{Dielectric Behavior of de Vries Liquid Crystals}
+\author{Zach Sailer \\ Bachelors of Science in Physics \\ California Polytechnic State University \\  San Luis Obispo, CA \\ \\ https://github.com/Zsailer/calpolythesis}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In this experiment, we use the method of dielectric spectroscopy with two De Vries liquid crystal materials, 8422[2F3] and TSiKN65, to determine the type of phase transition that occurs between the SmA-SmC phases and quantify their susceptibility in an external perturbation. In the smectic-C, we find resonance peaks which indicate an increase in the crystal's susceptibility to align with an alternating electric field. We fit our data to the Debye dispersion model and extract the relaxation strength of the crystal at different temperature. This data is used to make a Curie-Weiss plot for each sample, where the critical exponent $\gamma$ is determined. Each material exhibits second order phase transitions ($\gamma \approx 1$) that can be modeled by a Landau free energy equation. This model quantifies the material's susceptibility with the constant value $\alpha$. Smaller values of $|\alpha |$ indicate higher susceptibility for the material to respond to external perturbations. We determine $\alpha$ to be 5.255$^{-1}$K for the TSiKN65 compound and -1.60 K$^{-1}$for the 8422[2F3] compound.
+\end{abstract}
+
+\section{Introduction}
+\indent \indent The most familiar states of matter are the solid, liquid, gas, and plasma phases. For many centuries, these were the only known states; however, in 1888 an Austrian botanical physiologist, Friedrich Reinitzer, discovered a second melting point between the solid and liquid phase in a cholesterol compound \cite{phase_trans}. This intermediate, unique phase would later be known as the liquid crystalline phase. It has become an important concept in understanding of biological systems and development of electro-optical sciences. Such substances ``flow" much like a liquid and maintain positional order like the crystalline phase. Today, the physics of these materials are used to study cellular bi-layer membranes within the human body, create fast-response digital displays, gauge temperature changes with high accuracy, and many other purposes. 
+
+They exists due to the shape and polarization of the molecules. Liquid crystals (LC's) are treated as long rod-shaped molecules, fairly rigid along their long axises, and possess a strong dipole polarization. These two characteristics cause the crystals to inherit unique positional and orientational order not seen in liquids; yet they still flow much like a liquid, without the a rigid structure seen in solids. Also, there are sub-phases within liquid crystals that demonstrate different positional, orientational, and bond-orientational order. Three phases that are commonly recognized within these crystals are the nematic, smectic A (SmA), and smectic C (SmC) phases. 
+
+\subsection{Phases within the Liquid Crystal Phase}
+
+\begin{figure}[htbp]
+\centering
+	\hspace{-20pt}
+	\begin{minipage}[b]{0.3\linewidth}
+   		\centering
+   		\includegraphics[scale = .17]{nematic.jpg} % requires the graphicx package
+   	\end{minipage}
+	\hspace{5pt}
+	\begin{minipage}[b]{0.3\linewidth}
+		\centering
+   		\includegraphics[scale = .17]{smecticA.jpg} % requires the graphicx package
+	\end{minipage}
+	\hspace{15pt}
+	\begin{minipage}[b]{0.3\linewidth}
+		\centering
+   		\includegraphics[scale = .17]{smecticC.jpg} % requires the graphicx package
+	\end{minipage}
+ \caption{The illustration on the left is an example of the nematic phase of liquid crystals. All the molecules' long axises align in a common direction, while the positions of the molecules are free to move around.}
+ \label{LCdiagram}
+\end{figure}
+
+\indent \indent In the nematic phase, the crystals do not possess any position order, only long-range directional order. Due to their rod-like shape, the long axis of all the crystals tend to align with one another, but their position may flow in any direction. Thus, their center of masses are randomly located throughout a sample. In Figure \ref{LCdiagram}, the picture on the left illustrates a typical nematic phase. There is a common direction, along the director $n$, that the crystals point.  Notice, the molecules do not necessarily all point in the same direction. In fact, they may align in many different directions; however, the average of all the directors point in one direction. This director is a fundamental characteristic of all liquid crystals. 
+
+The smectic phases are characterized by both orientational order and \emph{positional order}. The position of each crystal is not distributed randomly; rather, they align into layers. Again, take a look at Figure \ref{LCdiagram}. The picture in the center illustrates the smectic A phase. In this phase, all the molecules axises align with a common director $z$ like the nematic phase, and their center of masses align with one another. As a result, the sample forms distinct layers stacked on top of one another, much like a bookshelf, and the director is pointed perpendicular to these shelves. 
+
+The smectic C phase possesses similar characteristics to the smectic A phase. The molecules form layers on top of one another, and the molecules align along a similar director. However, this director is not perpendicular to the layers. Instead, a new director $n$ with a small tilt angle $\theta$ is induced on all the molecules. This is shown on the right in Figure \ref{LCdiagram}. 
+
+
+\subsection{Tilt Cone, Polarization, and LC Cells}
+
+\begin{wrapfigure}{rhb}{0.3\textwidth}
+\vspace{5pt}
+\begin{center}
+   \includegraphics[scale = .08]{tiltcone.jpg} 
+\end{center}
+   \caption{Crystals in the SmC phase experience a tilt, with angle $\theta$, and are free to revolve around a cone.}
+   \label{tiltcone}
+   \vspace{-20pt}
+\end{wrapfigure}
+
+\indent \indent When the molecules are in the SmC phase and experience such a tilt, they are able to revolve along a cone formed along the $z$ director (see Figure \ref{tiltcone}). This characteristic induces a polarization on a sample of LC's. In the following experiment, we explore this polarization and how susceptible these crystals are to changes in electric fields. The direction of such a polarization $\bold{P}$ for liquid crystals is $\hat{z} \times \hat{n}$. Figure \ref{tiltcone} shows that the direction of $\bold{P}$ is into the page. As the molecules spins around the tilt cone, the polarization direction moves around the top of the cone like hands of a clock. If an external electric field is applied across the short axis of the liquid crystal parallel to the layers, the molecule will revolve until the polarization direction aligns with the field. For our experiments, we exploit this property by observing these materials between two conducting glass slides.
+
+\begin{figure}[htbp]
+\hspace{20pt}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .28]{combo.jpg} 
+	\end{minipage}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+  		\includegraphics[scale = .25]{chiral.jpg} 
+	\end{minipage}
+	\caption{The capacitor consists of two plates separated by a distance, $d$. When a dielectric material is between the two plates (such as liquid crystals), the properties of the capacitor changes.}
+	\label{slides}
+\end{figure}
+
+Recall the bookshelf analogy from before. In our liquid crystal samples, the glass slides are the sides of the book shelf. The layers are the shelves, and the crystals are the books standing upright. If the crystal is in the SmA phase, the $\hat{z}$ (perpendicular to the layers or shelves) and $\hat{n}$ directors (parallel to the orientation of the books) are parallel to each other. The direction of polarization, by definition, is the cross product of these two directors; therefore, there is no polarization in the SmA phase (See Figure \ref{slides}). When the crystal melts into the SmC phase (the books lean on the shelf), the tilt induces a polarization also shown in Figure \ref{slides}. 
+
+Our samples are built using two glass slides coated with indium-tin oxide for conducting electric charge at their surface. We add a separate coating of nylon material and run a brush over the surface of the slide. This ``scratches" microscopic grooves onto the glass that causes the liquid crystal material to align between the slides. Micro-spacers are dropped onto the slide to create micrometer spacing between the two plates.  Before the liquid crystal material is applied, we use an Ocean Optics spectrometer to measure the thickness of the cells. Two wire leads are connected to the surface of the cells using conducting epoxy. These connections allow us to apply electric fields across the slides and polarize the material \cite{electrodes}. Figure \ref{anglecell} illustrates a liquid crystal slide used in this experiment. 
+
+
+\subsection{Ferroelectricity, Antiferroelectricity, and Chirality}
+\indent \indent The principle of $\bold{ferroelectricity}$ is important property of some SmC liquid crystal phases. It is analogous with ferromagnetism, which is the permanent magnetization present in materials like iron (``ferro" means iron). Ferroelectricity describes the phenomena when the bulk of a material has a permanent electric polarization without an external electric field, and all the molecules point in the same direction. This property can be reversed in the presence of an external field. The SmA phase of liquid crystals do not exhibit ferroelectric behavior. In SmC phase, the tilt of the molecules induces a polarization in each of the layers of the sample. If the layers all point in the same direction, the sample is ferroelectric. It is also possible for each layer to polarize in opposite directions, and the bulk to show zero net polarization (a phenomena known as $\bold{antiferroelectricity}$). If layers' directors do not align or show any antiferroelectric symmetry, the system is neither ferroelectric or antiferroelectric. All of the samples used in this experiment are ferroelectric. 
+
+\indent Ferroelectricity brings the concept of symmetry to question. In several branches of science, the term $\bold{chirality}$ describes the characteristic of asymmetry. In liquid crystals, chirality can be used to describe individual molecules or a bulk system of LC's. If a bulk is not identical to its mirror image , the system is considered chiral \cite{polarization}. If a molecule is not symmetric about its short or long axis, the molecules itself is considered chiral. Achiral systems show these kinds of symmetry. For example, a unique achiral phase is the helical structure shown in Figure \ref{slides}. This type of SmC phase has no net polarization in the sample (antiferroelectric). When the layers are formed and an angle is induced in the SmC phase, each layer has a different polarization direction with an angle $\phi$ in the azimuthal plane. Each layer's polarization angle is slightly shifted from the surrounding layers, forming a helix-twisted structure in the bulk sample. This phase is described as an achiral antiferroelectric SmC liquid crystal \cite{theoretical}. Phases that demonstrate chiral structure are labeled with an asterisk (i.e. SmC*).
+
+\subsection{De Vries Materials}
+\indent \indent For our experiments, we use a special class of liquid crystal material known as De Vrie's LC's. These crystals are unique from other materials, because they do not exhibit any layer shrinkage between the SmA-SmC phase transition \cite{polarization}. Recall, the SmA phase typically requires that all the crystals align along a common director that is perpendicular to it's layers. In the SmC phase, this common director tilts at an angle away from the horizontal, shortening the distance between layers. In the De Vries materials, there is no difference between the layer distances in the SmA and SmC phases. This lack of layer shrinkage is due to a unique property in their SmA phase. Unlike typical SmA LC's, De Vries materials actually experience a spontaneous tilt with random azimuthal angles in each layer. These angles cancel each other out, so the SmA phase still shows a net common director $z$ perpendicular to its layers, like other materials. When the crystals transition into the SmC phase, they maintain this tilt, but their directors align in a common direction with angle $\theta$ from the $z$ director. Thus, no layer shrinkage occurs during the phase transition.
+
+\subsection{Universality Classes}
+
+\indent \indent In this experiment, we seek to determine whether our liquid crystals fall into a particular universality class. Universality classes are groups of mathematical expressions that attempt to model the behavior of physical systems. Each expression contains the same set of ``critical exponents": $\alpha$ the heat capacity exponent, $\beta$ the magnetic order parameter exponent, $\gamma$ the susceptibility exponent, and $\nu$ the correlation length. A physical material is considered part of a class when the it's properties align with the critical exponents of the model. This process of classification allows scientists to study complex, foreign materials more efficiently. If a material's behavior fits the universality class of a known substance or computer simulated system, a scientist can perform similar experiments on both. 
+
+\begin{table}[h]
+\begin{tabular}{|l||c|c|c|c|c|}
+	\hline
+        Class Name                & $\alpha$    & $\beta$      & $\gamma$   & $\nu$        & Dimension count  \\ \hline\hline
+        XY Model                  & -0.0146(8)	 & 0.3485(2)	   & 1.3177(5)	 & 0.67155(27)	 & 3               \\ 
+        2d Ising Model            & 0           & 1/8          & 7/4        & 1            & 2               \\ 
+        3d Ising Model            & 0.1096(5)	  & 0.32653(10)	 & 1.2373(2)	 & 0.63012(16)	 & 3               \\ 
+        Mean Field (Landau) Model & 0           & 1/2          & 1          & 1/2          & 2, 3 \\
+\hline
+\end{tabular}
+\caption{Universality classes and their critical exponents used to describe the behavior physical substances \cite{xyclass}.}
+\label{univclass}
+\end{table}
+
+A few common universality classes are listed in Table \ref{univclass}. In earlier experiments, the XY critical exponents seemed to accurately describe the classical behavior of liquid crystals; however, later experiments shows that around the SmC-SmA phase transition, the crystals behave similar to the mean field, Landau model \cite{quasi}. In this experiment, we determine the susceptibility exponent $\gamma$ for our samples and compare them to the above models. In the SmC-SmA transition, we expect to see a critical exponent similar to the Landau model. 
+
+\section{Experimental Design - The Theory Behind Dielectric Spectroscopy}
+\indent \indent We use the technique of dielectric spectroscopy to determine the susceptibility critical exponent. Dielectric spectroscopy is an important tool in studying the molecular dynamics and relaxation characteristics in ferroelectric LC's. This measurement uses an alternating current and impedance analyzer to measure the crystals' polarization response in an electric field. This measurement is repeated over multiple temperatures to obtain a spectrum of the susceptibility, and the data is compared with the universality models. 
+\subsection{Review of a Capacitor}
+
+\indent \indent Before diving into the complex details of dielectric spectroscopy, we begin with a review of the physics of capacitors. Liquid crystal slides behave as a capacitor with dielectric material between the two plates. Recall, that the capacitor consists of two parallel conducting plates with a separation, $d$, between them. Each plate holds equal and opposite charge, creating an electric field between them.
+
+\begin{figure}[htbp]
+\centering
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{EmptyCapacitor.jpg} 
+	   	%\caption{Typical capacitor with empty space between the two plates}
+	   	\label{emptyCap}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+  		\includegraphics[width=\textwidth]{LCCapacitor.jpg} 
+   		%\caption{This is an example of our liquid crystal sample.}
+   		\label{emptyCap}
+	\end{minipage}
+	\vspace{-50pt}
+	\caption{The capacitor consists of two plates separated by a distance, $d$. When a dielectric material is between the two plates (such as liquid crystals), the properties of the capacitor changes.}
+\end{figure}
+
+
+The ratio of the charge on each plate over the potential between them is known as the capacitance:
+\begin{equation}
+	C = \frac{Q}{V}.
+\end{equation}
+Assuming that the area, $A$, of the plates is much larger than the distance, $d$, between plates, the potential between the two plates is defined as the line integral of the electric field in the capacitor.
+\begin{equation}
+	V = \int\limits_0^{d} E dz = \int\limits_0^{d} \frac{\rho}{\epsilon_{0}} dz = \frac{\rho d}{\epsilon_{0}} = \frac{Qd}{\epsilon_{0} A}
+	\label{duh}
+\end{equation}
+where $\rho$ is the free charge collected at the surface of the capacitor and $\epsilon_{0}$ is the permittivity of free space.  Therefore, the total charge on the surface of the capacitor is
+\begin{equation}
+	\frac{Q}{A} = \epsilon_{0}{E}.
+\end{equation}
+This new expression for the potential can be substituted into the equation for capacitance. Thus, the capacitance is directly related to the permittivity within the capacitor (in this case, this region is a vacuum), and indirectly related to the electric field:
+\begin{equation}
+	C_{0} = \frac{\epsilon_{0}A}{d} = \frac{Q}{Ed}
+\end{equation}
+
+In this experiment, an alternating power source is used to observe the response of the capacitor when a potential is applied across the plates. As the potential difference between the glass slides switches direction, there is time delay before the current changes direction due to the charging at the capacitor's surface. Thus, there is lag between the applied voltage and current phase angles (shown in Figure \ref{phase})
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[scale = .5]{phaselag.eps} 
+   \caption{This shows the phase angle lag between the current and the applied potential. (The potential is the black wave while the current is the red wave.)}
+   \label{phase}
+\end{figure}
+Recall that the current is defined as motion of charge over time ($dQ/dt$) and the potential is $Q/C$ for a capacitor. Thus, we see that the current is simply the time derivative of the potential across the plates. The ratio of the potential and current is known as the impedance of the capacitor, or the opposition to current flowing across the plates when voltage is applied. 
+\begin{equation}
+\begin{array}{rcccl}
+	\frac{v_{c}}{i_{c}} & =  & \frac{V\sin(\omega t)}{\omega V C \cos(\omega t)} & = & \frac{\sin(\omega t)}{\omega C \sin(\omega t + \frac{\pi}{2})}  \\ \\
+	Z_{\text{capacitor}} & = & \frac{1}{\omega C}e^{-j\frac{\pi}{2}} & = & \frac{1}{j\omega C}
+\end{array}
+\label{imped}
+\end{equation}
+The impedance tells us a lot about the capacitor. It is dependent upon the frequency of the applied oscillating field; therefore, we will observe how it changes when the sample is scanned over a range of frequencies. Notice that the impedance of the capacitor is imaginary. Our samples, however, are not empty capacitors. They are comprised of two glass microscope slides with liquid crystals between them. Thus, before we begin to describe the experiment, we must review the physics of a capacitor with dielectric material between the two plates. 
+
+\subsection{Capacitor with Dielectric Material}
+\indent \indent A dielectric material is an electric insulator that can be polarized in the presence of an electric field. Liquid crystals are a type of dielectric material. Electric charges do not flow through the material as they do a conductor, rather they slightly shift in location by polarization of the molecules inside. In this case, positive charges shift in the direction of the external electric field, and negative charges away from the field. If the molecules of a material are weakly bounded, they will flip their axis of symmetry parallel to align with the direction of the field, a phenomenon known as polarization. An increase in polarization inside a capacitor will increase its surface charge. The polarization density, $\bold{P}$, within a capacitor is an expression for the vector field describing the number of dipole moments between the two plates. 
+\begin{equation}
+	\bold{P} = \epsilon_{0} \chi \bold{E}
+	\label{hey}
+\end{equation}
+where $\chi$ is the electric susceptibility of the dielectric material, or how easily the dipoles align with the electric field. The susceptibility factor describes how sensitive the dielectric is to its environment. Temperature, density, and pressure can effect the material's response to the external electric field. Thus, this factor is the interest of dielectric spectroscopy. Equation \ref{hey} is linear under small alternating electric fields, and is related the dielectric's permittivity:
+\begin{equation}
+	\epsilon_{r} = \chi + 1
+\end{equation}
+The total charge on the surface of capacitor's plates, altered by this polarization density caused by the dielectric, is: 
+\begin{equation}
+	\frac{Q}{A} = \epsilon_{0}\bold{E} - \bold{P}.
+\end{equation}
+Plugging in the expression for the polarization density and solving for the electric field, we can see how the electric field is effected by the dielectric (due to the susceptibility constant).
+\begin{equation}
+	\bold{E} = \frac{Q}{A\epsilon_{0}(1+\chi)} = \frac{Q}{A\epsilon_{0}\epsilon_{r}}
+\end{equation}
+The new capacitance of the slides is
+\begin{equation}
+	C = \frac{Q}{dE}=\frac{Q}{\frac{Q}{A\epsilon_{0}\epsilon_{r}} d} = \frac{A\epsilon_{0}\epsilon_{r}}{d} = C_{0}\epsilon_{r}.
+\end{equation}
+Notice, there is a new factor $\epsilon_{r}$. Thus, by measuring the capacitance of our samples, we can study the polarization susceptibility of liquid crystals. We will exploit this fact through using alternating electric fields at different frequencies and observing the sample's response. After scanning across a wide range of frequencies, we expect to see a particular frequency at which the capacitance falls off (and conductance peaks). 
+
+\subsection{The Theory Behind the Experiment}
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[scale = .1]{ReVsIm1.jpg} 
+   \caption{Imaginary Vs. Real plane for the capacitor's impedance. $|Z| = \sqrt{R^{2} + X^{2}}$}
+   \label{plane}
+\end{figure}
+
+ \indent \indent    In this experiment, we use a HP 4192A LF Impedance Analyzer to measure the dielectric properties of our liquid crystal samples. This machine applies an AC voltage across the sample and measures the magnitude of it's impedance. Recall from earlier, the applied voltage lags the current through the capacitor by some angle. This device measures this phase angle (as well as the magnitude), allowing us to determine the real and imaginary parts of the total impedance. Figure \ref{plane} shows the imaginary versus real plane. The real part is known as the resistance of the circuit, $R$, while the imaginary part is known as the reactance, $X$. Equation \ref{imped} describes the impedance of a capacitor as imaginary; therefore, an ideal liquid crystal sample would only displace the imaginary part. However, there is a small bit of resistance in the samples due to the electrode connections across the slides. Using the data output from the impedance analyzer, the magnitude and phase angle, we can determine the values for the reactance and resistance:
+\begin{equation}
+	R = |Z|\cos \theta \hspace{0.25cm} \text{and} \hspace{0.25cm} X = |Z|\sin \theta
+\end{equation}
+These two expressions lead us to the complex impedance:
+\begin{equation}
+	Z = R + iX.
+\end{equation}	
+If we take the reciprocal of this value, we get the admittance, $Y$, which can lead us straight to the capacitance and conductance of the sample. The complex admittance is
+\begin{equation}
+	Y = G + i\omega C
+\end{equation}
+where $G$ is the conductance and $C$ is the capacitance of the circuit (The expression $\omega C$ is known as the susceptance $B$). In this experiment, we measure the impedance and use it to calculate the values for $G$ and $C$. These expressions are simply:
+\begin{equation}
+	G = \frac{R}{R^{2}+X^{2}} \hspace{0.25cm} \text{and} \hspace{0.25cm} C = \frac{-X}{\omega(R^{2}+X^{2})} 
+\end{equation}
+From these, we can derive the complex dielectric variable, $\epsilon_{r}$, which has real and imaginary parts ($\epsilon_{r} = \epsilon ' + i\epsilon ''$). Assuming our sample behaves much like a dielectric capacitor (the premise of our entire model), the admittance will be:
+\begin{equation}
+	 Y_{sample}  = \frac{1}{Z_{sample}} = {j\omega C} = \frac{A\epsilon_{0}j\omega \epsilon_{r}}{d} = {C_{0}j\omega \epsilon_{r}}.
+\end{equation}
+Using this expression for the admittance, we can relate the dielectric variable, $\epsilon_{r}$, directly to the capacitance and conductance.
+\begin{equation}
+	\epsilon_{r}= \frac{G}{j\omega C_{0}} + \frac{j\omega C}{j\omega C_{0}}
+\end{equation}
+We call these two values the real and imaginary parts of the dielectric variable.
+\begin{equation}
+	\epsilon ' = \frac{C}{C_{0}} \hspace{0.25cm} \text{and} \hspace{0.25cm} \epsilon '' = \frac{G}{\omega C_{0}}.
+\end{equation}
+The behavior of these two values is the interest of this experiment. We will observe the changes of these spectrums at different frequencies and temperatures.
+
+\indent \indent The Debye relaxation model describes a dielectric's relaxation response to a population of ideal dipoles exposed to an alternating external field. When the liquid crystal is in the SmC phase, it behaves similar to bulk of ideal dipoles. Thus, we will use this model to monitor and probe our data for peaks in dielectric response. It will be used to fit out experimental data and determine the susceptibility of the crystals to align with the field. The general model is:
+\begin{equation}
+	\epsilon '' = \epsilon_{\infty} + \frac{\Delta \epsilon}{1+[i(f/f_{r})]^{\beta}} + g(f)
+	\label{debyeeq}
+\end{equation}
+where $\epsilon_{\infty}$ is the permittivity at the high frequency limit, $\Delta \epsilon$ is the relaxation strength or susceptibility, $f_{r}$ is the relaxation frequency, and $g(f)$ is the lower-frequency contribution \cite{static}.  This model contains complex values and can be plotted for both the real and the imaginary part against the frequency (known as a Debye plot). Figure \ref{debye} shows the general shape of this model.
+
+\begin{figure}[htbp]
+\hspace{-20pt}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .3]{debye.eps} 
+		\vspace{-15pt}
+	\end{minipage}
+	\hspace{.8cm}
+	\begin{minipage}[b]{0.45\linewidth}
+  		\includegraphics[scale = .3]{cole.eps} 
+	\end{minipage}
+   \caption{The left plot shows and example of a Debye dispersion. The real part ($\epsilon '$) of the model is plotted as the red line, while the imaginary part ($\epsilon ''$) is plotted as the blue line. The right plot shows a typical Cole-Cole plot of Debye dispersion.}
+	\label{debye}
+\end{figure}
+
+It is important to remember our goal in this experiment. We are seeking to measure the electrical susceptibility $\chi_{e}$ of our liquid crystal samples. From this figure, we can see that the imaginary part of the dielectric variable shows a distinct ``peak" known at a mode. Recall that this plot is related to the conductance $G$ (or ease of current flow through the sample) of the liquid crystal cell. Thus, this peak describes a rise in conductance and shows that the crystals are more \emph{susceptible} to align with the alternating electric field at this frequency. Ultimately, this is a plot of the samples susceptibility factor.
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+   \begin{center}
+   	\includegraphics[scale = .15]{angleSmC.jpg} 
+   \end{center}
+   \caption{Illustration of a typical SmC liquid crystal sample between two conducting slides. Due to the direction of the tilt (along the horizontal plane of the cell), the polarization points vertically through the sample.}
+   \label{anglecell}
+	\vspace{-5pt}
+\end{wrapfigure}
+
+Using the Debye dispersion model, we measure the height of any modes, $\Delta \epsilon$, and determine the dielectric constant at that temperature. The reciprocal of this value is plotted against the temperature for each measurement, and the susceptibility critical exponent, $\gamma$, is determined used a fit with the power law model \cite{polymer}:
+\begin{equation}
+	(\Delta \epsilon)^{-1} = A |t|^{\gamma} + B.
+\end{equation}
+
+
+\subsection{What is Going on with the Liquid Crystal?}
+
+\indent \indent Now that we know how to make the measurements, we take a moment to explain what exactly we are measuring. More specific, what is happening inside the liquid crystal cell? As described earlier, when a material is in the SmC phase, it tilts an angle $\theta$ away from the perpendicular director $z$. While the average direction of all the molecules have the same director $n$, this director has the freedom to move anywhere on the tilt cone. Especially in an alternating electric field, the molecules will revolve back and forth to align with the field. In this experiment, we observe the response of the crystals to such a field by measuring the dielectric coefficient shown in Figure \ref{debye}. The imaginary piece $\epsilon "$ of this coefficient is the susceptibility of the crystals to revolve at the frequency of the alternating field. Any peaks visible on this graph describe the phenomenon when the crystals revolution rate is closest to matching the frequency of the field. This is known as the $\bold{resonance\hspace{5pt} frequency}$ of the crystal. 
+
+If the crystal is in the SmA phase, we expect the sample to have no polarization, because the $z$ and $n$ director are parallel. The illustration in Figure \ref{slides} shows the alignment of the crystals with our glass slides. The crystals do not flip or align with any external electric field applied across the slides without polarization. Therefore, when observing the dielectric response of the crystal in this phase, we expect to see no resonance peak in the measurements. 
+
+If the crystal is in the SmC phase, the crystals have a polarization from the tilt cone. As a field is applied across the slides, the polarization director aligns with this field and the molecules revolve accordingly. Therefore, these type of crystals typically have high dielectric permittivity in the SmC phase due to a collective relaxation response of every crystal in the system. This phenomena is known as the Goldstone mode (GM) \cite{polarization}. This is observed as a peak in the dielectric absorption over a range of frequencies. We repeat these measurements at many different temperatures to create a surface plot of the dielectric spectrum. On this surface, we look for a clear phase transition at the transition temperature for each sample we test.
+
+
+\section{Obtaining LC Dielectric Spectrum}
+
+% Place Figures of Molecules
+
+In this experiment, we use two different De Vries materials with virtually no layer shrinkage. The first material is a 8422[2F3] sample. Using the Ocean Optics spectrometer, we determined the width of the sample to by 5$\mu$m. The second material is a TSiKN65 sample and the width is measured to be 5$\mu$m. We use a Hewlett-Packard Impedance Analyzer 4192A LF to apply a 0.1V oscillating current through each sample and measured the magnitude of the impedance and it's complex angle. The dielectric values are determined from these impedances using the conversion described the previous section. Using a custom National Instruments Labview program to automate the experiment, we determine these values over a range of frequencies. This technique is repeated at multiple temperatures (near the SmA-SmC transition) to obtain a 3D surface spectrum of the dielectric absorption. These surfaces for each material are shown in Figures \ref{surfaces}
+
+\begin{figure}[htbp]
+\centering
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .7]{surf65.png} 
+	\end{minipage}
+	\begin{minipage}[b]{0.45\linewidth}
+  		\includegraphics[scale = .7]{surf8422.png} 
+	\end{minipage}
+   \caption{Dielectric surface plots for the TSiKN65 and 8422[2F3] samples}
+	\label{surfaces}
+\end{figure}
+
+\subsection{Soft-Mode Absorption}
+
+From these spectra, one can easily see the Goldstone mode that exists throughout the SmC phase, described earlier. This is heavily influenced by effects from surface anchoring and cannot be easily quantified \cite{blinc}. For this experiment, we restrict ourselves to the analysis of the mode that appears right at the transition temperature. This is known as the soft mode and results from the fluctuations of the tilt angle. A typical De Vries material exhibit large soft-mode absorptions because of the reduced layer shrinkage. In a non-De Vries material, the restoring force of tilt fluctuations should be close to the elastic energy required for layer shrinkage (induced by the tilt) at the transition temperature. This means the switching of the tilt director will require more energy than a De Vries material, and dielectric absorption will be small in this region. In the De Vries materials, the molecules are already tilted in the SmA phase and can easily align and tilt in the oscillating frequency. In general, the weaker the coupling between the layer spacing and tilt fluctuations, the higher the soft-mode response.
+
+\begin{figure}[htbp]
+\hspace{-20pt}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .45]{imag23.eps} 
+	\end{minipage}
+	\hspace{.8cm}
+	\begin{minipage}[b]{0.45\linewidth}
+  		\includegraphics[scale = .45]{imag39.eps} 
+	\end{minipage}
+   \caption{The left plot shows and example of a Debye dispersion. The real part ($\epsilon '$) of the model is plotted as the red line, while the imaginary part ($\epsilon ''$) is plotted as the blue line. The right plot shows a typical Cole-Cole plot of Debye dispersion.}
+	\label{imagcomp}
+\end{figure}
+
+We quantify the soft-mode data by using the Debye Equation (Equation \ref{debye}) for each spectrum. We use IPython notebook and Matplotlib to plot the data and fit our model to each mode in a spectrum. The modes are characterized by their dielectric susceptibility $\chi$, distribution parameter $\beta$, and resonant frequency. A least-squares-fit function is used to determine these values. The results for two temperatures, $23.5^{\circ}$C and $39.5^{\circ}$C of the TSiKN65, are shown in Figures \ref{imagcomp} and \ref{colecomp}, comparing the different behaviors for the dielectric spectra in the SmC and SmA phases. (In both phases, there is a dielectric resonance peak in the $10^{5}$ Hz range known as the dipolar relaxation. The dipole polarization orientation is disturbed by thermal noise and there is a relaxation period where the molecules realign their polarization vectors with the external field. This peak is an intrinsic property and is ignored for this paper) \cite{devries}.
+
+\begin{figure}[htbp]
+\hspace{-20pt}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .45]{cole23.eps} 
+	\end{minipage}
+	\hspace{.8cm}
+	\begin{minipage}[b]{0.45\linewidth}
+  		\includegraphics[scale = .45]{cole39.eps} 
+	\end{minipage}
+   \caption{The left plot shows and example of a Debye dispersion. The real part ($\epsilon '$) of the model is plotted as the red line, while the imaginary part ($\epsilon ''$) is plotted as the blue line. The right plot shows a typical Cole-Cole plot of Debye dispersion.}
+	\label{colecomp}
+\end{figure}
+
+\subsection{Landau Theory}
+For the experiment, we are looking to compare this behavior to the mean-field theory for the susceptibility of these materials. One conclusion of the theory is that the susceptibility of order-parameter fluctuations (like the soft mode fluctuations) for a second-order transition point $T_{C}$ diverges according to:
+\begin{equation}
+	\Delta \epsilon= \chi = \frac{1}{m(T-T_{C})}
+\end{equation}
+From this equation, we plot the reciprocal of our $\chi$ against the $T-T_{C}$ and extract the constant slope $m$. This plot is known as a Curie-Weiss Plot. In our experiment, we expect the crystals to show linear behavior, indicating a second-order phase transition. This can be modeled by the Landau expansion of the free energy:
+\begin{equation}
+	g = g_0 + \frac{1}{2} \alpha (T - T_{C}) \Theta ^{2} + \frac{1}{2\chi_{\infty} \epsilon_{0}} P^{2}  - C \Theta P - PE,
+	\label{landau}
+\end{equation}
+where $\Theta$ is the tilt angle, $P$ is the polarization, $E$ is the electric field applied, and $g_0$ is the nonsingular term corresponding the SmA phase \cite{devries}. A smaller leading Landau coefficient $\alpha$ broadens the temperature region where the mean-field theory is valid \cite{dielectric}. This coefficient measures how easily the tilt angle can fluctuate in these materials from external perturbations (like an oscillating electric field). From our conclusions earlier in this section, a larger soft-mode from small layer shrinkage leads to a smaller restoring force and smaller values of $\alpha$. In the Landau model, this means the tilt-angle is easily effected by external electric fields. 
+
+If we minimize the free energy equation (Equation \ref{landau}) with respect to the polarization, this gives the spontaneous polarization \cite{blinc}
+\begin{equation}
+	P_{s} = \chi_{\infty} \epsilon_{0} C \theta_{s}
+\end{equation}
+where $\chi_{\infty}$ is $\epsilon_{\infty} - 1$ and $C$ is a constant that couples the tilt and the polarization. We obtain this value from optical experiments done by M. Krueger and F. Giesselmann in 2005 \cite{dielectric}. Therefore, we expect the slope of our Curie-Weiss plot to be 
+\begin{equation}
+	m_{\chi} = \frac{\alpha}{\epsilon_{0} C^{2}\chi^{2}_{\infty}}.
+\end{equation}
+We solve this equation in terms of $\alpha$ to determine the soft-mode susceptibility Landau coefficient of the liquid crystal
+\begin{equation}
+	\alpha = \frac{m_{\chi}m^{2}_{P\theta}}{\epsilon_0}
+	\label{final}
+\end{equation}
+where $C^2 \chi^{2}_{\infty} = m^{2}_{P\Theta}$. This coefficient quantifies the dielectric susceptibility of the system in the presence of external electric perturbation.
+
+
+\section{Results and Discussion}
+
+\begin{table}[htbp]
+	\centering
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    Sample  & SmA-SmC Transition ($^{\circ}$C) & $m_{\chi}$ & B & $\gamma$ value & $\alpha$ (K$^{-1}$)& $m_{P\Theta}$ \\ \hline
+    TSiNK65 & 26.3                               & 0.014         &-0.20 & 0.99              & 5.26        &185                \\ \hline
+    8422[2F3] & 65                               & -0.0041         &0.603 & 0.95              & -1.60        &185                \\ \hline
+    \end{tabular}
+    \caption{The results from the dielectric experiment for both samples.}
+\label{tablefinal}
+\end{table}
+
+For the TSiNK65 sample, we sweep the frequency from 100 Hz to $10^{6}$ Hz. These measurements are repeated for temperatures between $19^{\circ}$C and $40^{\circ}$C and the $\Delta \epsilon$ is determined from our fitted Debye-model. This value is used to make the Curie-Weiss plot shown in Figure \ref{curie}. We use a linear fit function to determine the slope of this data $m_{\chi}$. The values for this fit are shown in Table \ref{tablefinal}. The first thing we notice is that the value for $\gamma$ is near 1. This is our indication that our sample experienced a second order phase transition, which follows the mean-field universality class. We plug these values into Equation \ref{final} to determine the value of $\alpha$. In our experiment, we determine this value to be 5.255$^{-1}$K. 
+
+\begin{figure}[htbp]
+\hspace{-20pt}
+	\begin{minipage}[b]{0.45\linewidth}
+		\centering
+		\includegraphics[scale = .6]{susctsi.png} 
+	\end{minipage}
+	\hspace{.8cm}
+	\begin{minipage}[b]{0.45\linewidth}
+  		\includegraphics[scale = .6]{susc8422.png} 
+	\end{minipage}
+   \caption{The Curie-Weiss plots for each of our samples. The plot on the left shows the data and fitted line for the TSiKN65 material. The plot on the right shows the data and fitted line for the 8422[2F3] material.}
+	\label{curie}
+\end{figure}
+
+The Curie-Weiss plot for 8422[2F3] sample is shown in Figure \ref{curie}. The frequencies are swept from 1kHz to $10^{6}$Hz, and the temperatures range from  $55^{\circ}$C to $100^{\circ}$C. We repeat the measurements and calculations to obtain the value of  $m_{\chi}$. The values are shown in Table \ref{tablefinal}. This sample also behaves as a second order phase transition with $\gamma$ near 1. The unusual result from our experiment is that the value of $m_{\chi}$ is negative, causing the value of $\alpha$ to also be negative. Understanding this behavior requires more exploration beyond the scope of this experiment. We determine the value of $\alpha$ to be -1.60 K$^{-1}$.
+
+The results from our experiment confirm our theory that the SmA-SmC transition is a second order phase transition and follows Landau free expansion behavior. The susceptibility coefficient $\alpha$ proves to be smaller for these crystals than non-De Vries materials measured in previous experiments (i.e. "Study of De Vries behavior of the smectic A and smectic C phase transition" \cite{devries}). As described earlier, a smaller coefficient implies that less energy is needed to align the material's polarization with the external field. This also implies that the restoring force for the layer shrinkage (or molecule tilt) is smaller than typical SmC liquid crystals. Because the De Vries materials do not experience layer shrinkage, it makes sense that this restoring force is small. Hence, De Vries materials will always have lower values of $\alpha$. This is confirmed by our experiment. 
+
+
+
+\nocite{*}
+\newpage
+\bibliography{references}
+\bibliographystyle{plain}
+
+\newpage
+\section{Appendix I: Labview Program}
+
+\begin{figure}[htbp]
+\vspace{-20pt}
+   \centering
+   \includegraphics[scale = .33]{front1.png} 
+   \vspace{-20pt}
+   \caption{The Labview block diagram that describes the front panel and controls of the program.}
+   \label{f1}
+\end{figure}
+
+\begin{figure}[htbp]
+\vspace{-20pt}
+   \centering
+   \includegraphics[scale = .54]{front2.png} 
+   \vspace{-20pt}
+   \caption{The Labview block diagram that describes the logging and graphing of the data from the program.}
+   \label{f2}
+\end{figure}
+
+\newpage
+
+\begin{figure}[htbp]
+   \centering
+   \includegraphics[scale =.54]{front3.png} 
+   \caption{The Labview front panel UI.}
+   \label{f3}
+\end{figure}
+
+\section{Appendix II: IPython Notebooks}
+
+Full IPython notebook Analysis at the following website:
+
+https://github.com/Zsailer/calpolythesis
+
+\includepdf[pages=-]{a1}
+\includepdf[pages=-]{a2}
+\includepdf[pages=-]{a3}
+
+
+
+%\lstinputlisting[language=Matlab]{datafilter.m}
+
+\end{document}
