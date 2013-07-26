@@ -3,7 +3,7 @@
 #### Zachary Sailer ####
 
 This repository includes my final thesis paper on "Dielectric Spectroscopy of Liquid Crystals" as a physics undergraduate at California Polytechnic State University, San Luis Obispo.
-It includes the all data files, figures, code, IPython notebooks, and final PDF paper (written in Latex). 
+It includes the all data files, figures, code, IPython notebooks, bibtex file, and final PDF paper (written in Latex). 
 The hope in posting this to Github is that it will promote open science, as every bit of my project and research is available under this repository.
 
 The links below use NbViewer to convert the raw json files into viewable notebooks in the browser.
